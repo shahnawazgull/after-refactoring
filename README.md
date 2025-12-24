@@ -4,16 +4,15 @@ MongoDB (local instance or MongoDB Atlas)
 Installation
 
 Clone the repository:
-git clone <repository-url>
-cd <project-folder>
+git clone git@github.com:shahnawazgull/after-refactoring.git
+cd after-refactoring
 Install dependencies:
-npm install
+npm install 
 Create a public/images folder for uploads:
 mkdir -p public/images
 Set up your MongoDB connection in the main app file (e.g., server.js or via environment variables).
 npm run dev
 Open your browser and visit http://localhost:8080 (or your configured port).
-
 
 Home page: Lists all products.
 /add-product: Add a new product.
