@@ -9,6 +9,9 @@ app.use(express.static('public'))
 dbConnection();
 app.use(express.urlencoded({extended:true}))
 app.use(router);
+app.use((req,res)=>{
+    res.status(404).render('404page')
+})
 
 const port = process.env.PORT;
 app.listen(port,()=>{

@@ -20,7 +20,6 @@ export const postProductPage = async (req, res) => {
             image: req.file ? req.file.filename : null,
             description: req.body.product_desc,
         });
-        console.log(req.file)
         res.redirect('/')
     } catch (e) {
         console.log(e)

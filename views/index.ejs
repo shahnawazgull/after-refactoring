@@ -6,11 +6,11 @@
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-semibold">Product Inventory</h2>
             <a href="/add-product" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
-                + Add Product
+                + Add New Product
             </a>
         </div>
 
-        <!-- TABLE -->
+        <!-- Card -->
         <% if (products.length> 0 && products) {%>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
@@ -19,9 +19,13 @@
 
                         <!-- IMAGE -->
                         <div class="relative h-56">
+                            <%if(p.stock_status === 'Out of Stock'){%>
                             <img src="/images/<%= p.image %>" alt="<%= p.product_name %>"
+                                class="w-full h-full object-cover opacity-50 " />
+                                <%}else{%>
+                                    <img src="/images/<%= p.image %>" alt="<%= p.product_name %>"
                                 class="w-full h-full object-cover" />
-
+                                <%}%>
                             <!-- STATUS BADGE -->
                             <% if(p.stock_status==='Low Stock' ){ %>
                                 <span
