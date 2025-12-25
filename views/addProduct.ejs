@@ -2,6 +2,23 @@
   <!-- ADD PRODUCT FORM -->
   <section class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8 mt-10">
     <h2 class="text-2xl font-semibold mb-6 text-indigo-600">Add New Product</h2>
+    <% if (vr && vr.length > 0) { %>
+  <div class="mb-6 rounded-lg border border-red-300 bg-red-50 p-4">
+    <h3 class="mb-3 text-sm font-semibold text-red-700">
+      ⚠️ Please fix the following errors:
+    </h3>
+
+    <ul class="list-disc list-inside space-y-1">
+      <% vr.forEach((v) => { %>
+        <li class="text-sm text-red-600">
+          <%= v.msg %>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+
+
 
     <form class="grid grid-cols-1 md:grid-cols-2 gap-6" action="/add-product" method="post"
       enctype="multipart/form-data">

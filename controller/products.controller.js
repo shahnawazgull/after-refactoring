@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator";
 import SNKProducts from "../models/products.model.js";
 
 export const getHomePage = async (req, res) => {
@@ -6,11 +7,13 @@ export const getHomePage = async (req, res) => {
 }
 
 export const getProductPage = (req, res) => {
-    res.render('addProduct')
+    res.render('addProduct',{vr:[]})
 }
 export const postProductPage = async (req, res) => {
+    const validation = validationResult(req);
     try {
-        await SNKProducts.create({
+        if(validation.isEmpty()){
+            await SNKProducts.create({
             product_name: req.body.product_name,
             category: req.body.product_cat,
             price: req.body.price,
@@ -21,6 +24,9 @@ export const postProductPage = async (req, res) => {
             description: req.body.product_desc,
         });
         res.redirect('/')
+        }else{
+            res.render('addProduct',{vr:validation.array()})
+        }
     } catch (e) {
         console.log(e)
         res.render('addProduct')
@@ -29,12 +35,14 @@ export const postProductPage = async (req, res) => {
 
 export const getEditPage = async (req, res) => {
     const product = await SNKProducts.findById(req.params.id)
-    res.render('editProduct', { p: product })
+    res.render('editProduct', { p: product,vr:[] })
 }
 export const postEditPage = async (req, res) => {
     const product = await SNKProducts.findById(req.params.id)
+    const validation = validationResult(req)
     try {
-        const updatedData = {
+        if(validation.isEmpty()){
+            const updatedData = {
             product_name: req.body.product_name,
             category: req.body.product_cat,
             price: req.body.price,
@@ -49,6 +57,9 @@ export const postEditPage = async (req, res) => {
             }
             await SNKProducts.findByIdAndUpdate(req.params.id, updatedData);
             res.redirect('/')
+        }
+        }else{
+            res.render('editProduct',{vr:validation.array(),p:product})
         }
     } catch (e) {
         console.log(e)
